@@ -148,12 +148,13 @@ class Map(Widget):
     defaults = {'size': [3,3]}
 
 class Line(Widget):
-    defaults = {'size': [3,1]}
+    defaults = {'size': [3,3]}
 
-    def __init__(self, **kwargs):
-        if 'id' not in kwargs:
-            raise ValueError("Line requires the 'id' argument")
-        super(Line, self).__init__(**kwargs)
+class Users(Widget):
+    defaults = {'size': [3,3]}
+
+class Timeline(Widget):
+    defaults = {'size': [3,3]}
 
 class Text(Widget):
     defaults = {'color': 1,
