@@ -129,7 +129,7 @@ class BenLazyList(object):
         return self.iter(self._data)
 
     def iter(self, b):
-        if b[0] == 'l':
+        if b and b[0] == 'l':
             offset = 1
             size = len(b) - 2
         else:

@@ -56,7 +56,7 @@ class ChunkedList(BenLazyList):
         return BenLazyList(''.join(self._head))
 
     def __iter__(self):
-        return chain(chain.from_iterable(imap(self.iter, reversed(self._head))),
+        return chain((self._decode(x, 0)[0] for x in reversed(self._head)),
                      chain.from_iterable(imap(self.iter, reversed(self._tail))))
 
 encoder_alias(ChunkedList, BenLazyList)
