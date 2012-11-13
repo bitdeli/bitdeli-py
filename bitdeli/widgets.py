@@ -6,6 +6,7 @@ from bencode import BenJson
 import json
 import inspect
 import re
+import md5
 
 MAIN = '/tmp/worker/__main__.py'
 THEMES =\
@@ -177,6 +178,9 @@ class Bar(Widget):
 
 class Table(Widget):
     defaults = {'size': [3,2]}
+
+def gravatar_hash(email):
+    return md5.md5(email.lower().strip()).hexdigest()
 
 TYPES = {'map': Map,
          'line': Line,
