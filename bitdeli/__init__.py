@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta
 from types import DictType
 from fields import Event
@@ -11,7 +12,9 @@ from cbencode import Decoder
 from widgets import Title, Description, set_theme
 from profiles import Profiles
 
-PARAMS = params()
+if 'TESTING' not in os.environ:
+    PARAMS = params()
+
 GROUP_FORMAT = '%Y-%m-%d'
 
 class Profile(dict):
