@@ -70,7 +70,8 @@ from uuid import uuid4
 
 class Profiles(object):
     """
-    Data source for a chain.
+    Data source for a chain. Produces :class:`bitdeli.Profile` objects for
+    the first operator in the chain.
 
     Add a new instance of this class to the beginning of each chain.
     """
