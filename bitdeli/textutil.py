@@ -1,5 +1,31 @@
+"""
+:mod:`bitdeli.textutil`: Prettier descriptions
+==============================================
+
+This module contains utility functions that help to generate
+human-readable textual summaries in the :ref:`card-script`.
+"""
 
 class Percent(object):
+    """
+    :class:`Percent` pretty-prints a change in percents.
+
+    For instance,
+
+    .. code-block:: python
+
+       from bitdeli.textutil import Percent
+       from bitdeli.widgets import Description
+
+       text = {'change': Percent(-0.5, 0)}
+       Description("The number {change.verb} by {change} from the week before.",
+                   text)
+
+    produces the description "The number decreased by -50% from the week before".
+
+    :param x: float between -1..1 denoting the change.
+    :param precision: the desired number of decimals.
+    """
     def __init__(self, x, precision=1):
         self.x = x
         self.precision = precision
@@ -265,4 +291,8 @@ COUNTRIES = {
 }
 
 def country_name(code):
+    """
+    Maps an `ISO two letter country code
+    <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_ to a country name.
+    """
     return COUNTRIES.get(code, code)
