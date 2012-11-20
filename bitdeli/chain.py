@@ -167,10 +167,10 @@ class Show(Op):
     mode is convenient if you want to produce multiple widgets of the
     same type.
 
-    Rest of the keyword arguments are passed to `bitdeli.widgets.make_widget` as
-    such, except if a keyword argument *v* is a function, in which case the
-    argument gets the value of `v(e)` where *e* is an entry consumed from the
-    chain.
+    Rest of the keyword arguments are passed to
+    :func:`bitdeli.widgets.make_widget` as such, except if a keyword
+    argument *v* is a function, in which case the argument gets the
+    value of `v(e)` where *e* is an entry consumed from the chain.
 
     By default, the keyword argument `data` is set to the value of *e*.
 
