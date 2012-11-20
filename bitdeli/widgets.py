@@ -17,7 +17,7 @@ rows. The size attribute of a widget corresponds to these grid units,
 making 12 the maximum width of a widget.
 
 Note that :ref:`editor` shows a ruler in the preview that helps you to design
-dashboards that fit into a 16:9 display nicely in the full-screen mode.
+dashboards that fit fully in a 16:9 display in the full-screen mode.
 
 The widgets are shown on the board in the order they are created in the script.
 You can override the default order with the :class:`Group` object.
@@ -62,11 +62,11 @@ These keyword arguments are common to all widgets:
 - **data**: The data to be displayed, format depends on the widget type.
 
 - **size**: The size of the widget on the board: `size=(w, h)` where *0 < w < 13*
-  and *y > 0*.
+  and *h > 0*.
 
 - **color**: An integer between 1-3, picks a color from the current theme.
 
-- **group**: Define the widget :class:`group` for this widget.
+- **group**: Define the widget :class:`Group` for this widget.
 
 .. autoclass:: Bar
 .. autoclass:: Line
@@ -379,7 +379,7 @@ class Table(Widget):
 
 def gravatar_hash(email):
     """
-    Return a Gravatar hash given an email address.
+    Return a `Gravatar <http://gravatar.com>`_ hash for the given email address.
     """
     return md5.md5(email.lower().strip()).hexdigest()
 

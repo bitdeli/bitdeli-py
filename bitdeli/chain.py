@@ -6,7 +6,7 @@ The :mod:`bitdeli.chain` module enables an efficient and expressive
 chained coding style for the :ref:`card-script`.
 
 With this module, you can structure the card script as a set of
-(reusable) generator functions. The generators can be chained together
+reusable generator functions. The generators can be chained together
 to form a pipeline that pull data from :ref:`profiles`, process it in
 various ways, and finally show it on a widget.
 
@@ -15,7 +15,7 @@ structured as a set of independent chains, one for each widget. This
 pattern is handled efficiently by the :class:`Profiles` object that
 works as a data source for the chain. Instead of having to scan
 over all the profiles for each widget separately, all instances of
-:class:`Profiles` share a single iterator over the profiles.
+:class:`Profiles` share internally a single iterator over the profiles.
 
 For instance, this example
 
