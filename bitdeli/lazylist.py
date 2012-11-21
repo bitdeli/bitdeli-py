@@ -51,7 +51,7 @@ class BenLazyList(object):
         return self.iter(self._data)
 
     def __nonzero__(self):
-        return data and data != 'le'
+        return self._data and self._data != 'le'
 
     def iter(self, b):
         if b and b[0] == 'l':
