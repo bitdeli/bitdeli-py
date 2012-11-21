@@ -11,6 +11,7 @@
 # Written by Petru Paler
 
 import zlib, json
+from lazylist import BenLazyList
 
 try:
     import snappy
@@ -114,34 +115,6 @@ def bdecode(x, benjson=False):
 
 from types import StringType, IntType, LongType, DictType,\
                   ListType, TupleType, UnicodeType
-
-class BenLazyList(object):
-    def __init__(self, data='le', decode=None):
-        def default_decode(buf, offset):
-            return decode_func[buf[offset]](buf, offset)
-        self._data = data
-        self._decode = decode if decode else default_decode
-
-    def encode(self):
-        return self._data
-
-    def __iter__(self):
-        return self.iter(self._data)
-
-    def iter(self, b):
-        if b and b[0] == 'l':
-            offset = 1
-            size = len(b) - 2
-        else:
-            offset = 0
-            size = len(b)
-        while offset < size:
-            item, offset = self._decode(b, offset)
-            if type(item) == BenLazyList:
-                for subitem in item:
-                    yield subitem
-            else:
-                yield item
 
 class BenCached(object):
     __slots__ = ['bencoded']

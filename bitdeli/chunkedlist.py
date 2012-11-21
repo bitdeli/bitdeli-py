@@ -1,44 +1,5 @@
-"""
-:mod:`bitdeli.chunkedlist`: A lazy, lean list
-=============================================
-
-A :ref:`profile-script` may potentially store a large
-number of events in the profile.
-
-Storing events as a standard list in Python would be suboptimal as
-
-1. The whole list needs to be decoded from the profile even if only a few
-   latest events are needed by the card script.
-
-2. There are typically many duplicate items and other repetitive content in
-   the items, so they could be compressed efficiently.
-
-:mod:`bitdeli.chunkedlist` is a data structure that addresses these
-issues. It stores items as chunks that can be compressed efficiently. If
-only a few latest items are needed, they can be retrieved without having
-to decode and decompress the rest of the list.
-
-Interface
----------
-
-Two operations are supported:
-
-- **Iteration**: :mod:`bitdeli.chunkedlist` can be treated as an iterator.
-  Note that by convention the iterator produces newest items first.
-- **Truth testing**: `if chunkedlist` returns *True* only if *chunkedlist* is
-  not empty.
-
-To benefit from the optimizations, use constructs that avoid
-consuming all items from the iterator, such as
-`itertools.islice
-<http://docs.python.org/2/library/itertools.html#itertools.islice>`_,
-`itertools.takewhile
-<http://docs.python.org/2/library/itertools.html#itertools.takewhile>`_
-and `itertools.dropwhile
-<http://docs.python.org/2/library/itertools.html#itertools.dropwhile>`_.
-"""
-
-from bencode import BenLazyList, BenCompressed, bencode, encoder_alias
+from bencode import BenCompressed, bencode, encoder_alias
+from lazylist import BenLazyList
 from itertools import chain, imap, dropwhile
 
 COMPRESS_CHUNK_SIZE = 65536
