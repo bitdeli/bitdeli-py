@@ -26,7 +26,7 @@ from cbencode import Decoder
 
 # shorthands
 from widgets import Title, Description, set_theme
-from profiles import Profiles
+from chain import Profiles
 
 if 'TESTING' not in os.environ:
     PARAMS = params()
