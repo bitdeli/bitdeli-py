@@ -292,9 +292,9 @@ class Line(Widget):
 
       OR to show multiple series on the same chart:
 
-      A list of `{label: data}` objects, where
-      label is a string shown in the chart legend
-      and data is a list of tuples as defined above.
+      A list of `{"label": label, "data": data}` objects, where
+      *label* is a string shown in the chart legend
+      and *data* is a list of tuples as defined above.
     """
     defaults = {'size': [3,3]}
 
