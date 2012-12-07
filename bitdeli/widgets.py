@@ -368,7 +368,18 @@ class Table(Widget):
     Displays a table of dictionaries with keys as headers and values
     as cell contents.
 
+    The :class:`Table` widget can be used to export data from a card
+    either as CSV or JSON. Choose the desired format by setting either
+    `json_export` and/or `csv_export` true.
+
+    You can export rows of a table either manually by clicking the export
+    button on the table or by fetching data programmatically from the URL
+    linked to the export button. The `id` of the table is used as the
+    file name for the exported data.
+
     :param data: A list of dictionaries.
+    :param json_export: (boolean) enable exporting rows of the table as JSON.
+    :param csv_export: (boolean) enable exporting rows of the table as CSV.
     :param chart: To visualize numbers inside the table, provide
                   a dictionary with `{header_name: chart_type}` pairings.
                   The values in the corresponding column must be
