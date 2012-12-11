@@ -38,12 +38,12 @@ and `itertools.dropwhile
 <http://docs.python.org/2/library/itertools.html#itertools.dropwhile>`_.
 """
 
-from bencode import decode_func
+import bencode
 
 class BenLazyList(object):
     def __init__(self, data='le', decode=None):
         def default_decode(buf, offset):
-            return decode_func[buf[offset]](buf, offset)
+            return bencode.decode_func[buf[offset]](buf, offset)
         self._data = data
         self._decode = decode if decode else default_decode
 
