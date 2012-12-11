@@ -37,6 +37,9 @@ consuming all items from the iterator, such as
 and `itertools.dropwhile
 <http://docs.python.org/2/library/itertools.html#itertools.dropwhile>`_.
 """
+
+from bencode import decode_func
+
 class BenLazyList(object):
     def __init__(self, data='le', decode=None):
         def default_decode(buf, offset):
