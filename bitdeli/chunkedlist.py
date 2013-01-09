@@ -78,7 +78,7 @@ class ChunkedList(BenLazyList):
             # eventually fail the first item, thus drop the chunk.
             return not (chunk and pred(self.iter(chunk).next()))
         def head_predicate(item):
-            return not pred(self._decode(item, 0)[0])
+            return not (item and pred(self._decode(item, 0)[0]))
         self._tail = list(dropwhile(tail_predicate, self._tail))
         if not self._tail:
             # head is cleaned only if there is nothing left in the tail.
