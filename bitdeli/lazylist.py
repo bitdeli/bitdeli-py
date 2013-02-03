@@ -65,7 +65,7 @@ class BenLazyList(object):
             size = len(b)
         while offset < size:
             item, offset = self._decode(b, offset)
-            if type(item) == BenLazyList:
+            if isinstance(item, BenLazyList):
                 for subitem in item:
                     yield subitem
             else:
