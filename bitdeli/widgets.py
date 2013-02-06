@@ -179,7 +179,7 @@ def flush(output):
     if _widgets:
         set_text(title=_title.flush() if _title else None,
                  description=_description.flush() if _description else None)
-        output(map(encode, chain([_meta], _widgets.itervalues())))
+        #output(map(encode, chain([_meta], _widgets.itervalues())))
 
 def line_number():
     return [frame[2] for frame in inspect.stack() if frame[1] == MAIN][0]
@@ -221,7 +221,7 @@ class Widget(object):
     defaults = {}
 
     def __init__(self, **kwargs):
-        kwargs['id'] = kwargs.get('id', uuid4().hex)
+        kwargs['id'] = self.id = kwargs.get('id', uuid4().hex)
         kwargs['type'] = self.__class__.__name__.lower()
         if '_line_no' not in kwargs:
             kwargs['_line_no'] = line_number()
@@ -235,7 +235,8 @@ class Widget(object):
         if group:
             group._add(kwargs)
         else:
-            _widgets[kwargs['id']] = kwargs
+            self.kwargs = kwargs
+            #_widgets[kwargs['id']] = kwargs
 
 class Group(Widget):
     """
