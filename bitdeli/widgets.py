@@ -389,6 +389,9 @@ class Table(Widget):
     """
     defaults = {'size': [3,2]}
 
+class TextInput(Widget):
+    defaults = {'size': [3,2]}
+
 def gravatar_hash(email):
     """
     Return a `Gravatar <http://gravatar.com>`_ hash for the given email address.
@@ -401,7 +404,8 @@ TYPES = {'map': Map,
          'bar': Bar,
          'table': Table,
          'users': Users,
-         'timeline': Timeline}
+         'timeline': Timeline,
+         'textinput', TextInput}
 
 if __name__ == '__main__':
     MAIN = 'widgets.py'
