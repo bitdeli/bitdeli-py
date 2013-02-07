@@ -1,16 +1,19 @@
-
-_new = None
+_ddb = None
 
 def new(func):
-    global _new
-    _new = func
-    # FIXME func could be a generator of k-v pairs:
-    # create discodb in a wrapper func
+    from discodb import DiscoDB
+    global _ddb
+    _ddb = lambda profiles: DiscoDB(func(profiles))
     return func
 
-def _load(segments):
+def new_discodb(func):
+    global _ddb
+    _ddb = func
+    return func
+
+def _load(model, segments):
     if segments:
         # FIXME return segmented model
         pass
     else:
-        return 'this is a model'
+        return model
