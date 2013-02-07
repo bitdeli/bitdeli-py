@@ -405,7 +405,7 @@ TYPES = {'map': Map,
          'table': Table,
          'users': Users,
          'timeline': Timeline,
-         'textinput', TextInput}
+         'textinput': TextInput}
 
 if __name__ == '__main__':
     MAIN = 'widgets.py'
