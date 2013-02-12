@@ -26,7 +26,7 @@ def do_insight(db):
     import insight as _
     m = model._load(db, None) # FIXME add segments
     # FIXME handle missing _run
-    widgets = insight._run(m, PARAMS['event'])
+    widgets = [{}] + insight._run(m, PARAMS['event'])
     return map(lambda x: BenJson(json.dumps(x)), widgets)
 
 def do_model():
