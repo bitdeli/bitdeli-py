@@ -1,10 +1,20 @@
+from itertools import izip_longest
 
 _rules = {}
 _insight = None
+_segment = None
 
 def insight(func):
     global _insight
     _insight = func
+    return func
+
+def segment(func):
+    from discodb import DiscoDB
+    global _segment
+    _segment = lambda model, params: DiscoDB(izip_longest(func(model, params),
+                                                          [],
+                                                          fillvalue=''))
     return func
 
 def _run(model, params):

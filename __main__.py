@@ -34,13 +34,22 @@ def do_model():
     # FIXME handle missing _ddb
     return model._ddb(profiles())
 
+def do_segment(db):
+    import model as _
+    import insight as _
+    m = model._load(db, None) # FIXME add segments
+    # FIXME _segment not defined
+    return insight._segment(m, PARAMS['params'])
+
 if __name__ == '__main__':
     mtype = PARAMS['type']
     if mtype == 'insight':
         output(do_insight(load_model()))
-    elif mtype == 'model':
-        output(split(do_model().dumps()))
     elif mtype == 'draft':
         output(do_insight(do_model()))
+    elif mtype == 'model':
+        output(split(do_model().dumps()))
+    elif mtype == 'segment':
+        output(split(do_segment(load_model()).dumps()))
     else:
         raise Exception('Unknown type: %s' % mtype)
