@@ -9,6 +9,15 @@ OUTPUT_CHUNK_SIZE = 16 * 1024 * 1024
 
 nonce = ''
 
+def all_inputs():
+    communicate('resetinputs')
+    while True:
+        path = communicate('nextinput')
+        if len(path) > 0:
+            yield path
+        else:
+            break
+
 def entries(decoder=Decoder()):
     while True:
         for entry in communicate('next', decoder=decoder):
