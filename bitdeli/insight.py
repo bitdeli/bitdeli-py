@@ -3,6 +3,7 @@ from itertools import izip_longest
 _rules = {}
 _insight = None
 _segment = None
+_segment_label = None
 
 def insight(func):
     global _insight
@@ -15,6 +16,11 @@ def segment(func):
     _segment = lambda model, params: DiscoDB(izip_longest(func(model, params),
                                                           [],
                                                           fillvalue=''))
+    return func
+
+def segment_label(func):
+    global _segment_label
+    _segment_label = func
     return func
 
 def _run(model, params):

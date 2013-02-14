@@ -44,6 +44,9 @@ def output(lst, chunked=False):
     else:
         communicate('out', bencode(map(bencode, lst)))
 
+def output_sys(key, value):
+    return communicate('sysmsg', bencode([key, value]))
+
 def done():
     return communicate('done')
 

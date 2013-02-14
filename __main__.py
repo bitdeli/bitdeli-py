@@ -3,7 +3,7 @@ import json
 from bitdeli import model
 from bitdeli import insight
 
-from bitdeli.protocol import params, output, entries, all_inputs
+from bitdeli.protocol import params, output, entries, all_inputs, output_sys
 from bitdeli.bencode import BenJson, bencode
 from bitdeli import profiles
 
@@ -40,8 +40,15 @@ def do_insight(db, segments):
 def do_segment(db, segments):
     import model as _
     import insight as _
+    params = PARAMS['params']
     m = model._load(db, segments)
-    return insight._segment(m, PARAMS['params'])
+    db = insight._segment(m, params)
+    label = 'untitled'
+    if insight._segment_label:
+        label = insight._segment_label(db, params)
+    output_sys('label', label)
+    output_sys('size', len(db))
+    return db
 
 def do_model():
     import model as _
