@@ -46,7 +46,7 @@ def do_segment(db, segments):
     label = 'untitled'
     if insight._segment_label:
         label = insight._segment_label(db, params)
-    output_sys('label', label)
+    output_sys('label', label.encode('utf-8'))
     output_sys('size', len(db))
     return db
 
