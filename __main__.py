@@ -28,10 +28,6 @@ def split(data):
 def do_insight(db, segments):
     import model as _
     import insight as _
-    if segments:
-        print 'segment: %s' % ','.join(segments[0])
-    else:
-        print 'no segments'
     m = model._load(db, segments)
     # FIXME handle missing _run
     widgets = insight._run(m, PARAMS['params'])
