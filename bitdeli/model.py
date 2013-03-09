@@ -19,7 +19,7 @@ def segment_model(func):
     return func
 
 def uid(func):
-    def default_model(model, segment, labels):
+    def default_model(model, segments, labels):
         from segment_discodb import SegmentDiscoDB
         return SegmentDiscoDB(model, segments, func, labels)
     global _segment_model
