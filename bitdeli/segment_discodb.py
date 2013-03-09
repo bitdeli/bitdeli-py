@@ -14,7 +14,8 @@ class SegmentDiscoDBInquiry(DiscoDBInquiry):
 
 class SegmentDiscoDB(object):
 
-    def __init__(self, db, segments, uidfunc):
+    def __init__(self, db, segments, uidfunc, labels):
+        self.labels = labels
         self.db = db
         n = len(segments)
         if n == 1:

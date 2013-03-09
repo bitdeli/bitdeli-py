@@ -28,7 +28,7 @@ def split(data):
 def do_insight(db, segments):
     import model as _
     import insight as _
-    m = model._load(db, segments)
+    m = model._load(db, segments, PARAMS['segment-labels'])
     # FIXME handle missing _run
     widgets = insight._run(m, PARAMS['params'])
     return map(lambda x: BenJson(json.dumps(x)), widgets)
@@ -37,7 +37,7 @@ def do_segment(db, segments):
     import model as _
     import insight as _
     params = PARAMS['params']
-    m = model._load(db, segments)
+    m = model._load(db, segments, PARAMS['segment-labels'])
     db = insight._segment(m, params)
     label = 'untitled'
     if insight._segment_label:
