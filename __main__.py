@@ -3,7 +3,12 @@ import json
 from bitdeli import model
 from bitdeli import insight
 
-from bitdeli.protocol import params, output, entries, all_inputs, output_sys
+from bitdeli.protocol import params,\
+                             output,\
+                             entries,\
+                             all_inputs,\
+                             output_sys,\
+                             done
 from bitdeli.bencode import BenJson, bencode
 from bitdeli import profiles
 
@@ -63,3 +68,4 @@ if __name__ == '__main__':
         output(split(do_model().dumps()))
     else:
         raise Exception('Unknown type: %s' % mtype)
+    done()
