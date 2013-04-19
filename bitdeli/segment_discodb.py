@@ -2,6 +2,18 @@ from itertools import ifilter
 from discodb import DiscoDBInquiry, DiscoDBItemInquiry
 from discodb.query import Literal
 
+def make_segment_view(db, segments):
+    def isect():
+        segs = sorted((len(s), s) for s in segments)
+        tail = segs[1:]
+        for uid in segs[0][1]:
+            for sze, seg in tail:
+                if uid not in seg:
+                    break
+            else:
+                yield uid
+    return db.make_view(segments[0] if len(segments) == 1 else isect())
+
 class SegmentDiscoDBInquiry(DiscoDBInquiry):
     def __init__(self, iterfunc, okfunc):
         self.iterfunc = iterfunc
@@ -22,16 +34,7 @@ class SegmentDiscoDB(object):
         n = len(segments)
 
         if not uidfunc:
-            def isect():
-                segs = sorted((len(s), s) for s in segments)
-                tail = segs[1:]
-                for uid in segs[0][1]:
-                    for sze, seg in tail:
-                        if uid not in seg:
-                            break
-                    else:
-                        yield uid
-            self.view = db.make_view(segments[0] if n == 1 else isect())
+            self.view = make_segment_view(db, segments)
             uidfunc = lambda x: x
 
         if n == 1:
