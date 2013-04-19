@@ -29,7 +29,7 @@ def uid(func):
 def _load(model, segments, labels):
     if segments:
         if not _segment_model:
-            uid(lambda x: x)
+            uid(None)
         return _segment_model(model, segments, labels)
     else:
         return model
