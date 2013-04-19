@@ -18,26 +18,10 @@ class SegmentDiscoDB(object):
     def __init__(self, db, segments, uidfunc, labels):
         self.labels = labels
         self.db = db
+        self.view = None
         n = len(segments)
-        if uidfunc:
-            if n == 1:
-                seg = segments[0]
-                self.ok = lambda value: uidfunc(value) in seg
-            elif n == 2:
-                seg0, seg1 = segments
-                def two(value):
-                    uid = uidfunc(value)
-                    return uid in seg0 and uid in seg1
-                self.ok = two
-            else:
-                def many(value):
-                    uid = uidfunc(value)
-                    for segment in segments:
-                        if uid not in segment:
-                            return False
-                    return True
-                self.ok = many
-        else:
+
+        if not uidfunc:
             def isect():
                 segs = sorted((len(s), s) for s in segments)
                 tail = segs[1:]
@@ -47,8 +31,26 @@ class SegmentDiscoDB(object):
                             break
                     else:
                         yield uid
-            self.ok = None
             self.view = db.make_view(segments[0] if n == 1 else isect())
+            uidfunc = lambda x: x
+
+        if n == 1:
+            seg = segments[0]
+            self.ok = lambda value: uidfunc(value) in seg
+        elif n == 2:
+            seg0, seg1 = segments
+            def two(value):
+                uid = uidfunc(value)
+                return uid in seg0 and uid in seg1
+            self.ok = two
+        else:
+            def many(value):
+                uid = uidfunc(value)
+                for segment in segments:
+                    if uid not in segment:
+                        return False
+                return True
+            self.ok = many
 
     def __contains__(self, key):
         return key in self.db
@@ -64,10 +66,10 @@ class SegmentDiscoDB(object):
                              self.items().__format__('%s: %s.3'))
 
     def __getitem__(self, key):
-        if self.ok:
-            return SegmentDiscoDBInquiry(lambda: self.db[key], self.ok)
-        else:
+        if self.view:
             return self.db.query(Literal(key), view=self.view)
+        else:
+            return SegmentDiscoDBInquiry(lambda: self.db[key], self.ok)
 
     def get(self, key, default=None):
         if key in self:
@@ -87,10 +89,10 @@ class SegmentDiscoDB(object):
         return SegmentDiscoDBInquiry(lambda: self.db.unique_values(), self.ok)
 
     def query(self, query):
-        if self.ok:
-            return SegmentDiscoDBInquiry(lambda: self.db.query(query), self.ok)
-        else:
+        if self.view:
             return self.db.query(query, view=self.view)
+        else:
+            return SegmentDiscoDBInquiry(lambda: self.db.query(query), self.ok)
 
     def peek(self, key, default=None):
         try:
